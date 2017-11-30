@@ -23,7 +23,27 @@ router.get('/', function(req,res){
     });
 });//end GET food
 
-
+router.post('/', function (req,res){
+    var newFood = req.body;
+    pool.connect(function(errorConnectingToDatabase, client, done){
+        if(errorConnectingToDatabase){
+            console.log('Error connecting to database', errorConnectingToDatabase);
+            res.sendStatus(500);
+        } else {
+            client.query(`INSERT INTO food (name, deliciousness_rating, is_hot)
+            VALUES ($1, $2, $3);`, [newFood.name, newFood.deliciousness_rating, newFood.is_hot], 
+            function(errorMakingQuery, result){
+                done();
+                if(errorMakingQuery){
+                    console.log('Error making query', errorMakingQuery);
+                    res.sendStatus(500);
+                } else{
+                    res.sendStatus(201); 
+                }
+            });
+        }
+    });
+})
 
 
 

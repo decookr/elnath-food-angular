@@ -6,8 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Food Angular HTTP</title>
     <script src="vendors/angular.js"></script>
+    <script src="scripts/client.js"></script>
 </head>
-<body>
-    
+<body ng-app="RestaurantApp" ng-controller="FoodController as vm">
+    <p>vm.message:  {{vm.message}}</p>
+    <p>vm.foodArray: {{vm.foodArray}}</p>
+
+    <h1>Angular HTTP</h1>
+    <h2>Food List</h2>
+    <input type="text" ng-model="vm.newFood.name" placeholder="Name">
+    <input type="number" ng-model="vm.newFood.deliciousness_rating" placeholder="Deliciousness Rating">
+    <label>Is it hot?</label>
+    <input type="checkbox" ng-model="vm.newFood.is_hot">
+    {{vm.newFood}}
+    <button ng-click="vm.addNewFood(vm.newFood)">Add</button>
+    <ul>
+        <li ng-repeat="food in vm.foodArray">
+            {{food.name}}
+            <span ng-show="food.is_hot">is really hot!</span>
+            <!-- ng-show and ng-if do basically the same thing -->
+            <span ng-hide="food.is_hot">is not that hot</span>
+            and
+            <!-- this is called a ternary statement -->
+            {{food.deliciousness_rating > 300 ? "is really really delicious" : "is ok"}}
+        </li>
+    </ul>
+    {{3+9}}
+
 </body>
 </html>
