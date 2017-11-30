@@ -10,7 +10,7 @@ router.get('/', function(req,res){
             console.log('Error connecting to database', errorConnectingToDatabase);
             res.sendStatus(500);
         } else {
-            client.query('(SELECT * FROM food ORDER BY id);', function(errorMakingQuery, result){
+            client.query('SELECT * FROM food ORDER BY id;', function(errorMakingQuery, result){
                 done();
                 if(errorMakingQuery){
                     console.log('Error making query', errorMakingQuery);
