@@ -65,15 +65,15 @@ router.delete('/:id', function (req,res){
     });
 })
 
-router.put('/:id', function (req,res){
-    var foodIdToEdit = req.params.id;
-    var newName = req.body.name;
+router.put('/', function (req,res){
+    var foodToEdit = req.body;
     pool.connect(function(errorConnectingToDatabase, client, done){
         if(errorConnectingToDatabase){
             console.log('Error connecting to database', errorConnectingToDatabase);
             res.sendStatus(500);
         } else {
-            client.query(`UPDATE food SET "name" = $1 WHERE "id" = $2;`, [newName, foodIdToEdit], function(errorMakingQuery, result){
+            client.query(`UPDATE food SET name=$1, deliciousness_rating=$2, is_hot=$3 
+            WHERE "id" = $4;`, [foodToEdit.name, foodToEdit.deliciousness_rating, foodToEdit.is_hot, foodToEdit.id], function(errorMakingQuery, result){
                 done();
                 if(errorMakingQuery){
                     console.log('Error making query', errorMakingQuery);
