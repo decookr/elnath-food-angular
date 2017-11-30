@@ -7,7 +7,6 @@ app.controller('FoodController', ['$http', function($http){
     self.foodArray = [];  //empty array for food to go into
 
     self.newFood = {is_hot: false};            
-    
 
     self.getFood = function (){
        $http({
@@ -28,6 +27,28 @@ app.controller('FoodController', ['$http', function($http){
         }).then(function(response){
             console.log('response', response);
             self.newFood = {is_hot: false}; //this clears our the input fields 
+            self.getFood();
+        });
+    }
+
+    self.deleteFood = function(id){
+        $http({
+            method: 'DELETE',
+            url: '/food/' + id,
+        }).then(function(response){
+            console.log('response', response);
+           self.getFood();
+        });
+    }
+
+    self.editFood = function(id){
+        $http({
+            method: 'PUT',
+            url: '/food/' + id,
+            data: {
+                name: 
+            }
+        }).then(function(response){
             self.getFood();
         });
     }

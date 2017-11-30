@@ -9,29 +9,36 @@
     <script src="scripts/client.js"></script>
 </head>
 <body ng-app="RestaurantApp" ng-controller="FoodController as vm">
-    <p>vm.message:  {{vm.message}}</p>
-    <p>vm.foodArray: {{vm.foodArray}}</p>
+    <!-- <p>vm.message:  {{vm.message}}</p>
+    <p>vm.foodArray: {{vm.foodArray}}</p> -->
 
     <h1>Angular HTTP</h1>
     <h2>Food List</h2>
-    <input type="text" ng-model="vm.newFood.name" placeholder="Name">
-    <input type="number" ng-model="vm.newFood.deliciousness_rating" placeholder="Deliciousness Rating">
-    <label>Is it hot?</label>
-    <input type="checkbox" ng-model="vm.newFood.is_hot">
-    {{vm.newFood}}
-    <button ng-click="vm.addNewFood(vm.newFood)">Add</button>
+    <div>
+        <input type="text" ng-model="vm.newFood.name" placeholder="Name">
+        <input type="number" ng-model="vm.newFood.deliciousness_rating" placeholder="Deliciousness Rating">
+        <label>Is it hot?</label>
+        <input type="checkbox" ng-model="vm.newFood.is_hot">
+        {{vm.newFood}}
+        <button ng-click="vm.addNewFood(vm.newFood)">Add</button>
+    </div> 
     <ul>
         <li ng-repeat="food in vm.foodArray">
-            {{food.name}}
+                <input ng-model="food.name">
+            <!-- {{food.name}} -->
             <span ng-show="food.is_hot">is really hot!</span>
             <!-- ng-show and ng-if do basically the same thing -->
             <span ng-hide="food.is_hot">is not that hot</span>
             and
             <!-- this is called a ternary statement -->
             {{food.deliciousness_rating > 300 ? "is really really delicious" : "is ok"}}
+            <button ng-click="vm.deleteFood(food.id)">Delete</button>
+            <button ng-click="vm.editFood(food.id)">Edit</button>
         </li>
     </ul>
     {{3+9}}
 
 </body>
 </html>
+
+<!-- vm.deleteFood(food.id) -->
